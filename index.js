@@ -19,6 +19,7 @@ const saveToken = async (token) => {
 
 const startCLI = () => {
   const args = getArgs(process.argv)
+  console.log(process.env)
 
   if (args.h) {
     printHelp()
@@ -32,6 +33,6 @@ const startCLI = () => {
     return saveToken(args.t)
   }
   // result (ob-havo natijasini ko'rsatish)
-  getWeather("uzbekistan")
+  getWeather(process.env.CITY ?? "Uzbekistan")
 }
 startCLI() // Funksiyani ishga tushiramiz
