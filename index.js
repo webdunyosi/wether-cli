@@ -17,9 +17,13 @@ const saveToken = async (token) => {
   }
 }
 
+const getForcast = async () => {
+  const response = await getWeather(process.env.CITY ?? "Uzbekistan")
+  console.log(response)
+}
+
 const startCLI = () => {
   const args = getArgs(process.argv)
-  console.log(process.env)
 
   if (args.h) {
     printHelp()
@@ -32,7 +36,6 @@ const startCLI = () => {
   if (args.t) {
     return saveToken(args.t)
   }
-  // result (ob-havo natijasini ko'rsatish)
-  getWeather(process.env.CITY ?? "Uzbekistan")
+  getForcast()
 }
 startCLI() // Funksiyani ishga tushiramiz
