@@ -17,6 +17,19 @@ const saveToken = async (token) => {
   }
 }
 
+const saveCity = async (city) => {
+  if (!city.length) {
+    printError("Shahar bo'sh bo'lishi mumkin emas!")
+    return
+  }
+  try {
+    await saveKeyValue(TOKEN_DICTIONARY.city, city)
+    printSuccess("Shahar saqlandi!")
+  } catch (error) {
+    printError(error.message)
+  }
+}
+
 const getForcast = async () => {
   try {
     const response = await getWeather(process.env.CITY ?? "Uzbekistan")
@@ -36,16 +49,16 @@ const startCLI = () => {
   const args = getArgs(process.argv)
 
   if (args.h) {
-    printHelp()
+    return printHelp()
   }
 
   if (args.s) {
-    // save city (shaharni saqlash mantiqi yoziladi)
+    return saveCity(args.s)
   }
 
   if (args.t) {
     return saveToken(args.t)
   }
-  getForcast()
+  return getForcast()
 }
 startCLI() // Funksiyani ishga tushiramiz
