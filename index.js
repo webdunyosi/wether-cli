@@ -2,7 +2,7 @@
 import getArgs from "./helpers/args.js" // getArgs funksiyasini import qilamiz
 import { getWeather } from "./services/api.service.js"
 import { printError, printSuccess, printHelp } from "./services/log.service.js" // log xizmatidan funksiyalarni import qilamiz
-import { saveKeyValue, TOKEN_DICTIONARY } from "./services/storage.service.js"
+import { getKeyValue, saveKeyValue, TOKEN_DICTIONARY } from "./services/storage.service.js"
 
 const saveToken = async (token) => {
   if (!token.length) {
@@ -32,7 +32,8 @@ const saveCity = async (city) => {
 
 const getForcast = async () => {
   try {
-    const response = await getWeather(process.env.CITY ?? "Uzbekistan")
+    const city = process.env.CITY ?? (await getKeyValue(TOKEN_DICTIONARY.city))
+    const response = await getWeather(city)
     console.log(response)
   } catch (error) {
     if (error?.response?.status === 404) {
