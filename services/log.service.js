@@ -22,5 +22,17 @@ const printHelp = () => {
   `)
 }
 
+const printWeather = (response, icon) => {
+  console.log(dedent`
+    ${chalk.bgBlue("WEATHER")} Shahar: ${response.name}
+    ${icon}  ${response.weather[0].description}
+    Temperatura: ${response.main.temp}°C (hisoblangan temperatura: ${response.main.feels_like}°C)
+    Namlik: ${response.main.humidity}%
+    Shamol tezligi: ${response.wind.speed} m/s
+    Havo bosimi: ${response.main.pressure} hPa
+  `);
+  
+}
+
 // Boshqa fayllarda ishlatish uchun ularni eksport qilamiz
-export { printError, printSuccess, printHelp }
+export { printError, printSuccess, printHelp, printWeather }
